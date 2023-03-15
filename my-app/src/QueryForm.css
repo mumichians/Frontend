@@ -1,0 +1,17 @@
+.QueryForm
+{
+    font-size:14pt;
+}
+
+.QueryForm input
+{
+    height:100px;
+    width:400px;
+}
+
+.QueryForm ::placeholder
+{
+    font-size:12pt;
+}
+
+
