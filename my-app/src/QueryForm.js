@@ -1,43 +1,38 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './QueryForm.css';
 
-class QueryForm extends React.Component {
-  constructor(props) {
-    super(props);
-    let placeholders = [
-      "Write me a Rock song in the style of Taylor Swift",
-      "Please give me a Rap song in the style of Mac Miller",
-      "Write a Beatles song for me in the Pop genre pretty please",
-      "Give me a song in the style of Prince"
-    ]
-    let placeholderStr = placeholders[Math.floor(Math.random() * placeholders.length)];
-    this.state = {value: '', placeholder: placeholderStr };
+function QueryForm({onQuery}){
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  const [inputVal, setInput] = useState("");
 
-  handleChange(event) {
-    this.setState({value: event.target.value});
-  }
+  const placeholders = [
+          "Write me a Rock song in the style of Taylor Swift",
+          "Please give me a Rap song in the style of Mac Miller",
+          "Write a Beatles song for me in the Pop genre pretty please",
+          "Give me a song in the style of Prince"
+        ]
+  const placeholderStr = placeholders[Math.floor(Math.random() * placeholders.length)];
 
-  handleSubmit(event) {
-    alert('A query was submitted: ' + this.state.value);
+  const handleSubmit = (event) => {
     event.preventDefault();
-  }
+    console.log("Query Form got this value in HandleSubmit(): " + inputVal);
+    onQuery(inputVal);
 
-  render() {
-    return (
+  };
+
+  const handleChange = (event) => {
+    console.log("Query Form got this value in handleChange(): " + event.target.value);
+    setInput(event.target.value);
+  };
+
+  return(
     <div className="QueryForm">
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Query:
-          <input type="text" value={this.state.value}  placeholder={this.state.placeholder} onChange={this.handleChange} />
-        </label>
-        <input type="submit" value="Submit" />
+      <form onSubmit={handleSubmit}>
+      <input type="text" value={inputVal} placeholder={placeholderStr} onChange={handleChange}/>
+      <input type="submit"/>
       </form>
-      </div>
-    );
-  }
+    </div>
+  )
+
 }
 export default QueryForm;

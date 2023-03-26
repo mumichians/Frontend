@@ -10,3 +10,10 @@ def my_profile():
     }
 
     return response_body
+
+@api.route('/query', methods=['GET'])
+def query():
+    response_body = {
+        "response": "Hi this is proof the api route works"
+    }
+    return response_body
