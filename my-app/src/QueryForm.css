@@ -1,13 +1,44 @@
 .QueryForm
 {
     font-size:14pt;
+    margin-top: 20vh;
+    
 }
 
 .QueryForm input
 {
+    
+    margin: 0 auto;
+    display: block;
+    
+}
+
+#search{
     height:100px;
     width:400px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    
 }
+
+#submit-btn{
+    height:50px;
+    width:100px;
+    margin-top: 1vh;
+    color: #fff;
+    border:none;
+    border-radius:10px;
+    background-color:#0a0a23;
+    
+}
+
+
+
+#submit-btn:hover {
+    color: #fff;
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+}
+
 
 .QueryForm ::placeholder
 {

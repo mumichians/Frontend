@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './QueryForm.css';
 
-function QueryForm({onQuery}){
+function QueryForm({setContent}){
 
   const [inputVal, setInput] = useState("");
 
@@ -16,9 +16,34 @@ function QueryForm({onQuery}){
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("Query Form got this value in HandleSubmit(): " + inputVal);
-    onQuery(inputVal);
-
+    if(inputVal == ""){
+      alert("Prompt cannot be blank");
+    }else{
+      fetchData();
+    }
   };
+
+  const fetchData = async () => {
+    try {
+        const data = await (await fetch(`/query`)).json()
+        console.log("got data")
+        console.log(data)
+        setContent(data)
+    } catch (err) {
+        console.log(err.message)
+    }
+}
+
+
+  //  useEffect(() => {
+  //       fetch('/query')
+  //         .then(results => console.log(results))
+  //         .then(data => {
+  //           console.log("came back with a response")
+  //           console.log(data)
+  //         });
+  //     }, []);
+
 
   const handleChange = (event) => {
     console.log("Query Form got this value in handleChange(): " + event.target.value);
@@ -28,8 +53,8 @@ function QueryForm({onQuery}){
   return(
     <div className="QueryForm">
       <form onSubmit={handleSubmit}>
-      <input type="text" value={inputVal} placeholder={placeholderStr} onChange={handleChange}/>
-      <input type="submit"/>
+      <input type="text" id='search' value={inputVal} placeholder={placeholderStr} onChange={handleChange}/>
+      <input type="submit" id='submit-btn'/>
       </form>
     </div>
   )

@@ -3,11 +3,11 @@ import QueryForm from './QueryForm';
 import Container from './Container'
 
 function App(){
-  const [query, setQuery] = useState("")
+  const [content, setContent] = useState("")
   return(
     <div>
-      <QueryForm onQuery={setQuery}/>
-      <Container query={query}/>
+      <QueryForm setContent={setContent}/>
+      <Container content={content}/>
     </div>
   );
 }

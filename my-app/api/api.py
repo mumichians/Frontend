@@ -1,4 +1,5 @@
 from flask import Flask
+import _json
 
 api = Flask(__name__)
 
@@ -14,6 +15,10 @@ def my_profile():
 @api.route('/query', methods=['GET'])
 def query():
     response_body = {
-        "response": "Hi this is proof the api route works"
+        "test": "Hi this is proof the api route works",
+        "parsed_artist": "placeholder artist",
+        "parsed_genre": "placeholder genre",
+        "parsed_subject": "placeholder subject"
+        
     }
     return response_body
