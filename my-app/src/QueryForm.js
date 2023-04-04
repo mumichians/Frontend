@@ -25,7 +25,12 @@ function QueryForm({setContent}){
 
   const fetchData = async () => {
     try {
-        const data = await (await fetch(`/query`)).json()
+        const request = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ query: {query} })
+        };
+        const data = await (await fetch(`http://localhost:5000/query`, request)).json()
         console.log("got data")
         console.log(data)
         setContent(data)
@@ -33,17 +38,6 @@ function QueryForm({setContent}){
         console.log(err.message)
     }
 }
-
-
-  //  useEffect(() => {
-  //       fetch('/query')
-  //         .then(results => console.log(results))
-  //         .then(data => {
-  //           console.log("came back with a response")
-  //           console.log(data)
-  //         });
-  //     }, []);
-
 
   const handleChange = (event) => {
     console.log("Query Form got this value in handleChange(): " + event.target.value);

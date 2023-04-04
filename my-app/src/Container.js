@@ -20,5 +20,3 @@ function Container({content}){
 
 }
 export default Container;
-// const {lyricRes} = data.results;
-//             setLyrics(lyricRes)

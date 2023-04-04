@@ -1,24 +1,26 @@
 from flask import Flask
-import _json
-
+from flask_cors import CORS, cross_origin
+from flask import request
 api = Flask(__name__)
+CORS(api, support_credentials=True)
 
-@api.route('/profile')
-def my_profile():
-    response_body = {
-        "name": "Nagato",
-        "about" :"Hello! I'm a full stack developer that loves python and javascript"
-    }
 
-    return response_body
 
-@api.route('/query', methods=['GET'])
+@api.route('/query', methods=['POST'])
+@cross_origin(supports_credentials=True)
 def query():
+    query = request.json['query']
+    # TODO: do stuff with query
+    print(query)
+    lyrics = query
     response_body = {
-        "test": "Hi this is proof the api route works",
+        "lyrics": {lyrics},
         "parsed_artist": "placeholder artist",
         "parsed_genre": "placeholder genre",
         "parsed_subject": "placeholder subject"
         
     }
     return response_body
+
+if __name__ == '__main__':
+    api.run(debug=True, port=5000)
