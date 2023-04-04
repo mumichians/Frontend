@@ -9,7 +9,7 @@ CORS(api, support_credentials=True)
 @api.route('/query', methods=['POST'])
 @cross_origin(supports_credentials=True)
 def query():
-    query = request.json['query']
+    #query = request.json['query']
     # TODO: do stuff with query
     print(query)
     lyrics = query

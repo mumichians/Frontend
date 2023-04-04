@@ -25,12 +25,12 @@ function QueryForm({setContent}){
 
   const fetchData = async () => {
     try {
-        const request = {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ query: {query} })
-        };
-        const data = await (await fetch(`http://localhost:5000/query`, request)).json()
+        // const request = {
+        //   method: 'POST',
+        //   headers: { 'Content-Type': 'application/json' },
+        //   body: JSON.stringify({ query: {query} })
+        // };
+        const data = await (await fetch(`http://localhost:5000/query`)).json()
         console.log("got data")
         console.log(data)
         setContent(data)
