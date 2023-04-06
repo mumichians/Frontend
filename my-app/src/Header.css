@@ -1,12 +1,12 @@
 .header{
-    margin: 0;
-    padding: 0;
+    margin-top: 30vh;
+    margin-left: 50vw;
+    overflow:auto; 
+
 }
 
 #logo-holder {
     position: absolute;
-    margin-top: 5vh;
-    margin-left: 50vw;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -30,12 +30,12 @@
 .text-box{
     font-size: 100px;
     font-family: sans-serif;
-    position: relative;
+    position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 20vh;
-    margin-left: 50vw;
+    margin-top: 15vh;
+    z-index: 9;
     transform: translate(-50%,-50%);
 }
 span{
