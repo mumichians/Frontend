@@ -4,15 +4,13 @@
 }
 
 #logo-holder {
-    position: relative;
-    margin-top: 10vh;
+    position: absolute;
+    margin-top: 5vh;
     margin-left: 50vw;
-    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    transform: translate(-50%,-50%);
-}
+    transform: translate(-50%,-50%);}
 .sway {
     animation: sway 2s ease-in-out infinite;
   }
@@ -36,7 +34,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 5vh;
+    margin-top: 20vh;
     margin-left: 50vw;
     transform: translate(-50%,-50%);
 }

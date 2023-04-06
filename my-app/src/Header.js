@@ -6,7 +6,7 @@ function Header(){
       return(
         <div className="header">
         <div id="logo-holder">
-        <img src="img/TuneBotPink.png" alt="TuneBotPink" class="sway"/>
+        <img src={require('./img/TuneBotPink.png')} alt="TuneBotPink" class="sway"/>
         </div>
         <div className="text-box">
             <span>T</span>
