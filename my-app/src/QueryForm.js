@@ -23,14 +23,31 @@ function QueryForm({setContent}){
     }
   };
 
+//   const url = "http://localhost:8000/items/";
+
+// const data = { name: "example item", description: "this is an example item" };
+
+// fetch(url, {
+//   method: "POST",
+//   headers: {
+//     "Content-Type": "application/json",
+//   },
+//   body: JSON.stringify(data),
+// })
+//   .then((response) => response.json())
+//   .then((data) => console.log(data))
+//   .catch((error) => console.error(error));
   const fetchData = async () => {
     try {
-        // const request = {
-        //   method: 'POST',
-        //   headers: { 'Content-Type': 'application/json' },
-        //   body: JSON.stringify({ query: {query} })
-        // };
-        const data = await (await fetch(`http://localhost:5000/query`)).json()
+        const url = "http://localhost:8000/query/";
+        prompt = {'query': inputVal}
+        const data = await (await fetch(url, {
+          method: "POST",
+          headers: {
+                "Content-Type": "application/json",
+              },
+          body: JSON.stringify(prompt),
+        })).json()
         console.log("got data")
         console.log(data)
         setContent(data)
