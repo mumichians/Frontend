@@ -1,1 +1,4 @@
 model_epoch_5/
+venv/
+env/
+my-app/backend/venv/
