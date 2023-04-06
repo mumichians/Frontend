@@ -55,49 +55,49 @@ def get_token_types(input, enc):
 
     return tok_type_ids
 
+
+
 checkpoint = "gpt2-medium"
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model_directory = "model_epoch_5/"
 
-pt_model = GPT2LMHeadModel.from_pretrained(model_directory)
-pt_model = pt_model.to(device)
-
 tokenizer = GPT2Tokenizer.from_pretrained(model_directory)
 
-genre = "Metal"
-artist = "Frank Ocean"
-song_name = "Smoked Kielbasa"
+def generate(model, genre, artist, song_name):
+    context = "[s:genre]" + genre + "[e:genre]" + \
+            "[s:artist]" + artist + "[e:artist]" + \
+            "[s:title]" + song_name + "[e:title]" + \
+            "[s:lyrics]"
 
-context = "[s:genre]" + genre + "[e:genre]" + \
-          "[s:artist]" + artist + "[e:artist]" + \
-          "[s:title]" + song_name + "[e:title]" + \
-          "[s:lyrics]"
+    end_token = "[e:lyrics]"
+    end_token_id = tokenizer.added_tokens_encoder[end_token]
 
-end_token = "[e:lyrics]"
-end_token_id = tokenizer.added_tokens_encoder[end_token]
+    new_context = tokenizer.encode(context)
 
-new_context = tokenizer.encode(context)
-
-input_ids = torch.tensor(new_context, device=device, dtype=torch.long).unsqueeze(0)
-position_ids = torch.arange(0, len(new_context), device=device, dtype=torch.long).unsqueeze(0)
-token_type_ids = torch.tensor(get_token_types(new_context, tokenizer), device=device, dtype=torch.long).unsqueeze(0)
+    input_ids = torch.tensor(new_context, device=device, dtype=torch.long).unsqueeze(0)
+    position_ids = torch.arange(0, len(new_context), device=device, dtype=torch.long).unsqueeze(0)
+    token_type_ids = torch.tensor(get_token_types(new_context, tokenizer), device=device, dtype=torch.long).unsqueeze(0)
 
 
-sample_outputs = pt_model.generate(
-                                input_ids=input_ids,
-                                position_ids=position_ids,
-                                token_type_ids=token_type_ids,
-                                do_sample=True,
-                                top_k=50,
-                                max_length = 2000,
-                                top_p=0.95,
-                                num_return_sequences=3,
-                                eos_token_id=end_token_id,
-                                repetition_penalty=1.1
-                                )
+    sample_outputs = model.generate(
+                                    input_ids=input_ids,
+                                    position_ids=position_ids,
+                                    token_type_ids=token_type_ids,
+                                    do_sample=True,
+                                    top_k=50,
+                                    max_length = 2000,
+                                    top_p=0.95,
+                                    num_return_sequences=1,
+                                    eos_token_id=end_token_id,
+                                    repetition_penalty=1.1
+                                    )
 
-for i, sample_output in enumerate(sample_outputs):
-  output = tokenizer.decode(sample_output, skip_special_tokens=True)
-  output = output.replace(genre + artist + song_name, "")
-  print(f'{i}: prompt: \"{context}\"\nOutput:\n{output}\n\n')
+    return sample_outputs
+    # final_output = []
+    # for sample_output in sample_outputs:
+    #     output = tokenizer.decode(sample_output, skip_special_tokens=True)
+    #     output = output.replace(genre + artist + song_name, "")
+    #     final_output.append(output)
+    # return final_output
+  
