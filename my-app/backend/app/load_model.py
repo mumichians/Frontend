@@ -58,7 +58,7 @@ def get_token_types(input, enc):
 checkpoint = "gpt2-medium"
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model_directory = "/home/convai/gpt-2/transformers/tuned_models/lyrics_one_genre_varied/gpt2-medium_03-04-2023@18'14/model_epoch_5/"
+model_directory = "model_epoch_5/"
 
 pt_model = GPT2LMHeadModel.from_pretrained(model_directory)
 pt_model = pt_model.to(device)
