@@ -2,3 +2,5 @@ model_epoch_5/
 venv/
 env/
 my-app/backend/venv/
+.DS_Store
+model-best/

@@ -1,6 +1,12 @@
 
 import torch
 torch.manual_seed(42)
+import spacy
+from spacy.tokens import DocBin
+from tqdm import tqdm
+from spacy import displacy
+import json
+import sys
 
 from transformers import GPT2LMHeadModel, GPT2TokenizerFast, GPT2Config, GPT2Tokenizer
 from torch.utils.data import Dataset, DataLoader, random_split, RandomSampler, SequentialSampler
@@ -100,3 +106,23 @@ def generate(model, genre, artist, song_name):
     #     final_output.append(output)
     # return final_output
   
+def get_entities(prompt):
+    nlp_ner = spacy.load("./model-best")
+    doc = nlp_ner(prompt) # input sample text
+    # nlp_ner = nlp.create_pipe("./model-last")
+    # nlp.add_pipe(nlp_ner)
+    # doc = nlp_ner(prompt)
+    # displacy.render(doc, style="ent")
+
+    # docJSON = doc.to_json()
+    # print(docJSON)
+    artist = ""
+    title = ""
+    genre = ""
+    for e in doc.ents:    
+        if (e.label_ == "ARTIST"):
+            artist += (str(e) + " ")
+        if (e.label_ == "TITLE"):
+            title += (str(e) + " ")
+        if (e.label_ == "GENRE"):
+            genre += (str(e) + " ")

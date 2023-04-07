@@ -3,6 +3,13 @@ from fastapi.middleware.cors import CORSMiddleware
 from transformers import GPT2LMHeadModel
 import torch
 
+import spacy
+from spacy.tokens import DocBin
+from tqdm import tqdm
+from spacy import displacy
+import json
+import sys
+
 #copied
 import torch
 torch.manual_seed(42)
@@ -14,6 +21,9 @@ from torch.utils.data import Dataset, DataLoader, random_split, RandomSampler, S
 model_directory = "app/model_epoch_5/"
 
 app = FastAPI()
+
+# load ner model
+app.nlp_ner = spacy.load("app/model-best/")
 
 # Load model
 app.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -73,16 +83,13 @@ async def read_root() -> dict:
 def query(request: dict) -> dict:
     print(f"got this as the request: {request}")
     prompt = request['query']
-    my_arr = prompt.split(',')
-    genre = my_arr[0]
-    artist = my_arr[1]
-    title = my_arr[2]
+    genre, artist, title = get_entities(prompt)
     lyrics = generate(genre, artist, title)
     response_body = {
         "lyrics": {lyrics},
-        "parsed_artist": "placeholder artist",
-        "parsed_genre": "placeholder genre",
-        "parsed_subject": "placeholder subject"
+        "parsed_artist": artist,
+        "parsed_genre": genre,
+        "parsed_subject": title
         
     }
     return response_body
@@ -159,3 +166,18 @@ def generate(genre, artist, song_name):
     #     final_output.append(output)
     # return final_output
   
+def get_entities(prompt):
+    doc = app.nlp_ner(prompt) 
+
+    artist = ""
+    title = ""
+    genre = ""
+    for e in doc.ents:    
+        if (e.label_ == "ARTIST"):
+            artist += (str(e) + " ")
+        if (e.label_ == "TITLE"):
+            title += (str(e) + " ")
+        if (e.label_ == "GENRE"):
+            genre += (str(e) + " ")
+    
+    return genre.strip(), artist.strip(), title.strip()
