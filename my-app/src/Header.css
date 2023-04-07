@@ -86,4 +86,5 @@ span:nth-child(7)
 
 .author{
   transform: translate(20%,0%);
+  width: fit-content;
 }
