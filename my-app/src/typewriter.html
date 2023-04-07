@@ -1,0 +1,69 @@
+<p id="typing-text"></p>
+<button onclick="copyToClipboard()">Copy Text</button>
+<button onclick="downloadText()">Download Text</button>
+
+<script>
+    var text = "I'm chicken fried\nToo cool for school\n[Chorus: Cool]\nJames was here"; // Replace with the text you want to output
+    var delay = 50; // Replace with the delay between each letter (in milliseconds)
+  
+    function typeWriter() {
+        if (i < text.length) {
+            if (text.charAt(i) === '[') { // Check for opening bracket
+            i++;
+            var closeBracketIndex = text.indexOf(']', i); // Find index of closing bracket
+            var boldedText = text.slice(i, closeBracketIndex); // Extract text between brackets
+            document.getElementById("typing-text").innerHTML += '<strong>['; // Add opening bracket with <strong> tag
+            typeBoldedText(boldedText, function() { // Call function to type out bolded text
+                document.getElementById("typing-text").innerHTML += '<strong>' + '] </strong>'; // Add closing bracket with </strong> tag
+                i = closeBracketIndex + 1; // Update index to skip over closing bracket
+                setTimeout(typeWriter, delay); // Call typeWriter function recursively with delay
+            });
+            } else if (text.charAt(i) === '\n') { // Check for newline character
+            document.getElementById("typing-text").innerHTML += '<br>'; // Add <br> tag
+            i++;
+            setTimeout(typeWriter, delay); // Call typeWriter function recursively with delay
+            } else {
+            document.getElementById("typing-text").innerHTML += text.charAt(i); // Add regular character
+            i++;
+            setTimeout(typeWriter, delay); // Call typeWriter function recursively with delay
+            }
+        }
+    }
+
+    function typeBoldedText(text, callback) {
+        var j = 0;
+        var boldDelay = 50; // Delay between each bolded character (in milliseconds)
+        function typeChar() {
+            if (j < text.length) {
+            document.getElementById("typing-text").innerHTML += '<strong>' + text.charAt(j) + '</strong>';
+            j++;
+            setTimeout(typeChar, boldDelay); // Call typeChar function recursively with delay
+            } else {
+            callback();
+            }
+        }
+        typeChar();
+    }
+
+    function copyToClipboard() {
+        var copyText = document.createElement("textarea");
+        copyText.value = text;
+        document.body.appendChild(copyText);
+        copyText.select();
+        document.execCommand("copy");
+        document.body.removeChild(copyText);
+    }
+
+    function downloadText() {
+        var element = document.createElement("a");
+        element.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(text));
+        element.setAttribute("download", "tunebot.txt");
+        element.style.display = "none";
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+    }
+
+    var i = 0;
+    typeWriter();
+</script>

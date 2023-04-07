@@ -6,11 +6,12 @@ import './App.css';
 
 function App(){
   const [content, setContent] = useState("")
+  const [submitStatus, setSubmitStatus] = useState(false)
   return(
     <div id='app'>
       <Header/>
-      <QueryForm setContent={setContent}/>
-      <Container content={content}/>
+      <QueryForm setContent={setContent} setSubmitStatus={setSubmitStatus}/>
+      <Container content={content} submitStatus={submitStatus}/>
     </div>
   );
 }

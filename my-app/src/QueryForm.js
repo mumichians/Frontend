@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './QueryForm.css';
 
-function QueryForm({setContent}){
+function QueryForm({setContent, setSubmitStatus}){
 
   const [inputVal, setInput] = useState("");
 
@@ -21,6 +21,7 @@ function QueryForm({setContent}){
     if(inputVal === ""){
       alert("Prompt cannot be blank");
     }else{
+      setSubmitStatus(true)
       fetchData();
     }
   };
