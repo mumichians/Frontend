@@ -11,8 +11,16 @@ from transformers import GPT2LMHeadModel, GPT2TokenizerFast, GPT2Config, GPT2Tok
 from torch.utils.data import Dataset, DataLoader, random_split, RandomSampler, SequentialSampler
 
 #copied
+model_directory = "app/model_epoch_5/"
 
 app = FastAPI()
+
+# Load model
+app.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+app.model = GPT2LMHeadModel.from_pretrained(model_directory)
+app.model.to(app.device)
+app.tokenizer = GPT2Tokenizer.from_pretrained(model_directory)
+app.end_token_id = app.tokenizer.added_tokens_encoder["[e:lyrics]"]
 
 
 origins = [
@@ -116,34 +124,20 @@ def get_token_types(input, enc):
 
 
 def generate(genre, artist, song_name):
-    checkpoint = "gpt2-medium"
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    #model_directory = "model_epoch_5/"
-    
-    model_directory = "app/model_epoch_5/"
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-    # Load model
-    pt_model = GPT2LMHeadModel.from_pretrained(model_directory)
-    pt_model = pt_model.to(device)
-
-    tokenizer = GPT2Tokenizer.from_pretrained(model_directory)
     context = "[s:genre]" + genre + "[e:genre]" + \
             "[s:artist]" + artist + "[e:artist]" + \
             "[s:title]" + song_name + "[e:title]" + \
             "[s:lyrics]"
 
-    end_token = "[e:lyrics]"
-    end_token_id = tokenizer.added_tokens_encoder[end_token]
+    new_context = app.tokenizer.encode(context)
 
-    new_context = tokenizer.encode(context)
-
-    input_ids = torch.tensor(new_context, device=device, dtype=torch.long).unsqueeze(0)
-    position_ids = torch.arange(0, len(new_context), device=device, dtype=torch.long).unsqueeze(0)
-    token_type_ids = torch.tensor(get_token_types(new_context, tokenizer), device=device, dtype=torch.long).unsqueeze(0)
+    input_ids = torch.tensor(new_context, device=app.device, dtype=torch.long).unsqueeze(0)
+    position_ids = torch.arange(0, len(new_context), device=app.device, dtype=torch.long).unsqueeze(0)
+    token_type_ids = torch.tensor(get_token_types(new_context, app.tokenizer), device=app.device, dtype=torch.long).unsqueeze(0)
 
 
-    sample_outputs = pt_model.generate(
+    sample_outputs = app.model.generate(
                                     input_ids=input_ids,
                                     position_ids=position_ids,
                                     token_type_ids=token_type_ids,
@@ -152,11 +146,11 @@ def generate(genre, artist, song_name):
                                     max_length = 2000,
                                     top_p=0.95,
                                     num_return_sequences=1,
-                                    eos_token_id=end_token_id,
+                                    eos_token_id=app.end_token_id,
                                     repetition_penalty=1.1
                                     )
 
-    output = tokenizer.decode(sample_outputs[0], skip_special_tokens=True)
+    output = app.tokenizer.decode(sample_outputs[0], skip_special_tokens=True)
     output = output.replace(genre + artist + song_name, "")
     return output
     

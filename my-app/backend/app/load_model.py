@@ -56,7 +56,6 @@ def get_token_types(input, enc):
     return tok_type_ids
 
 
-
 checkpoint = "gpt2-medium"
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
