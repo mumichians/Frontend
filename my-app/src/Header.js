@@ -17,6 +17,9 @@ function Header(){
               <span>O</span>
               <span>T</span>
           </div>
+          <div className="author">
+            By Mumichians
+          </div>
         </div>
       )
 

@@ -1,20 +1,18 @@
 .header{
-    margin-top: 30vh;
-    margin-left: 50vw;
-    overflow:auto; 
-
+   margin-left: 50vw;
+   margin-bottom: 15px;
 }
 
 #logo-holder {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transform: translate(-50%,-50%);}
+  position: static;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(-50%,25%);
+  }
 .sway {
     animation: sway 2s ease-in-out infinite;
   }
-  
   @keyframes sway {
     0% {
       transform: translateX(0);
@@ -30,13 +28,12 @@
 .text-box{
     font-size: 100px;
     font-family: sans-serif;
-    position: absolute;
+    position: static;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 15vh;
     z-index: 9;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%,0%);
 }
 span{
     animation: mover 2s linear infinite;
@@ -85,4 +82,9 @@ span:nth-child(6)
 span:nth-child(7)
 {
     animation-delay: 3.5s;
+}
+
+.author{
+  transform: translate(20%,0%);
+  width: fit-content;
 }
