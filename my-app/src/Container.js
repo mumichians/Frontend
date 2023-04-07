@@ -83,6 +83,12 @@ function Container({content, submitStatus}){
     //     document.body.removeChild(element);
     // }
       if (submitStatus){
+        if (content === ""){
+          return(
+          <div id="loading">
+            <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+          </div>)
+        }else{
         return(
           <div className="container">
             <div id="bar">
@@ -98,13 +104,14 @@ function Container({content, submitStatus}){
               {/* <Typewriter
               onInit={(typewriter)=> {
               typewriter
+              .changeDelay(1)
               .typeString(content['lyrics'][0])
               .start();
               }}/> */}
               {content['lyrics']}
             </div>
           </div>
-        )
+        )}
       }else{
         return(<div></div>)
       }
