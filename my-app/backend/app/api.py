@@ -21,6 +21,28 @@ app.model = GPT2LMHeadModel.from_pretrained(model_directory)
 app.model.to(app.device)
 app.tokenizer = GPT2Tokenizer.from_pretrained(model_directory)
 app.end_token_id = app.tokenizer.added_tokens_encoder["[e:lyrics]"]
+app.meta_dict = {
+        "title": {
+            "st_token": "[s:title]",
+            "end_token": "[e:title]",
+            "tok_type_id": 1
+        },
+        "artist": {
+            "st_token": "[s:artist]",
+            "end_token": "[e:artist]",
+            "tok_type_id": 2
+        },
+        "genre": {
+            "st_token": "[s:genre]",
+            "end_token": "[e:genre]",
+            "tok_type_id": 3
+        },
+        "lyrics": {
+            "st_token": "[s:lyrics]",
+            "end_token": "[e:lyrics]",
+            "tok_type_id": 4
+        }
+    }
 
 
 origins = [
@@ -69,9 +91,6 @@ def query(request: dict) -> dict:
 
 #copied 
 
-
-
-
 def get_token_types(input, enc):
     """
     This method generates toke_type_ids that correspond to the given input_ids.
@@ -79,35 +98,13 @@ def get_token_types(input, enc):
     :param enc: Model tokenizer object
     :return: A list of toke_type_ids corresponding to the input_ids
     """
-    meta_dict = {
-        "title": {
-            "st_token": "[s:title]",
-            "end_token": "[e:title]",
-            "tok_type_id": 1
-        },
-        "artist": {
-            "st_token": "[s:artist]",
-            "end_token": "[e:artist]",
-            "tok_type_id": 2
-        },
-        "genre": {
-            "st_token": "[s:genre]",
-            "end_token": "[e:genre]",
-            "tok_type_id": 3
-        },
-        "lyrics": {
-            "st_token": "[s:lyrics]",
-            "end_token": "[e:lyrics]",
-            "tok_type_id": 4
-        }
-    }
 
     tok_type_ids = [0] * len(input)
 
-    for feature in meta_dict.keys():
-        start_tok_id = enc.added_tokens_encoder[meta_dict[feature]["st_token"]]
-        end_tok_id = enc.added_tokens_encoder[meta_dict[feature]["end_token"]]
-        tok_type_val = meta_dict[feature]["tok_type_id"]
+    for feature in app.meta_dict.keys():
+        start_tok_id = enc.added_tokens_encoder[app.meta_dict[feature]["st_token"]]
+        end_tok_id = enc.added_tokens_encoder[app.meta_dict[feature]["end_token"]]
+        tok_type_val = app.meta_dict[feature]["tok_type_id"]
 
         # If this feature exists in the input, find out its indexes
         if start_tok_id and end_tok_id in input:
@@ -130,11 +127,11 @@ def generate(genre, artist, song_name):
             "[s:title]" + song_name + "[e:title]" + \
             "[s:lyrics]"
 
-    new_context = app.tokenizer.encode(context)
+    context = app.tokenizer.encode(context)
 
-    input_ids = torch.tensor(new_context, device=app.device, dtype=torch.long).unsqueeze(0)
-    position_ids = torch.arange(0, len(new_context), device=app.device, dtype=torch.long).unsqueeze(0)
-    token_type_ids = torch.tensor(get_token_types(new_context, app.tokenizer), device=app.device, dtype=torch.long).unsqueeze(0)
+    input_ids = torch.tensor(context, device=app.device, dtype=torch.long).unsqueeze(0)
+    position_ids = torch.arange(0, len(context), device=app.device, dtype=torch.long).unsqueeze(0)
+    token_type_ids = torch.tensor(get_token_types(context, app.tokenizer), device=app.device, dtype=torch.long).unsqueeze(0)
 
 
     sample_outputs = app.model.generate(
