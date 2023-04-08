@@ -85,6 +85,7 @@ span:nth-child(7)
 }
 
 .author{
-  transform: translate(20%,0%);
+  transform: translate(70%,0%);
   width: fit-content;
+  font-family: "Lucida Console", "Courier New", monospace;
 }

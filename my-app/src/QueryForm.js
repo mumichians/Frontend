@@ -56,7 +56,7 @@ function QueryForm({setContent, setSubmitStatus}){
     <div className="QueryForm">
       <form onSubmit={handleSubmit}>
       <input type="text" id='search' value={inputVal} placeholder={placeholderStr} onChange={handleChange}/>
-      <input type="submit" id='submit-btn'/>
+      <input type="submit" value="Generate Lyrics!" id='submit-btn'/>
       </form>
     </div>
   )

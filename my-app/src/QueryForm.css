@@ -1,7 +1,7 @@
 .QueryForm
 {
     font-size:14pt;
-
+    font-family: "Lucida Console", "Courier New", monospace;
 }
 
 .QueryForm input
@@ -9,24 +9,28 @@
     
     margin: 0 auto;
     display: block;
+    font-family: "Lucida Console", "Courier New", monospace;
+    word-break: break-all
     
 }
 
 #search{
     height:100px;
-    width:400px;
+    width:500px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     
 }
 
 #submit-btn{
-    height:50px;
-    width:100px;
+    height:70px;
+    width:270px;
     margin-top: 1vh;
     color: #fff;
     border:none;
     border-radius:10px;
     background-color:#0a0a23;
+    font-size:18pt;
+    font-family: "Lucida Console", "Courier New", monospace;
     
 }
 
@@ -34,8 +38,8 @@
 
 #submit-btn:hover {
     color: #fff;
-    background-color: #0b5ed7;
-    border-color: #0a58ca;
+    background-color: #d70b60;
+    border-color: #ca0a5d;
 }
 
 

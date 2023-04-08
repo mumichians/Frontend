@@ -4,10 +4,11 @@
     width: 50%;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     background-color: white;
+    font-family: "Lucida Console", "Courier New", monospace;
 }
 
 #loading{
-    margin: 5vh auto auto auto;
+    margin: 5vh;
     text-align: center;
 }
 
