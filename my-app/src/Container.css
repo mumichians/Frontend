@@ -1,13 +1,12 @@
 
 .container{
-    margin: 5vh auto auto auto;
+    margin: 5vh auto 5vh auto;
     width: 50%;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     background-color: white;
     font-family: "Lucida Console", "Courier New", monospace;
     border-radius: 25px;
     border: 2px solid #d70b60;
-    margin-bottom: 20px;
 }
 
 .lyrics{
