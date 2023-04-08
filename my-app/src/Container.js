@@ -39,13 +39,11 @@ function Container({content, submitStatus}){
         return(
           <div className="container">
             <div id="bar">
-              <ul>
+              {/* <ul>
                 <li>{content['parsed_artist']}</li>
                 <li>{content['parsed_genre']}</li>
                 <li>{content['parsed_subject']}</li>
-              </ul>
-              {/* <button onclick="copyToClipboard()">Copy Text</button>
-              <button onclick="downloadText()">Download Text</button> */}
+              </ul> */}
             </div>
             <div id="typing-text" className="lyrics">
               {/* <Typewriter
