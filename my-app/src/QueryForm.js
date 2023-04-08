@@ -25,6 +25,7 @@ function QueryForm({setContent, setSubmitStatus}){
       alert("Prompt cannot be blank");
     }else{
       setSubmitStatus(true)
+      setContent("")
       fetchData();
     }
   };
