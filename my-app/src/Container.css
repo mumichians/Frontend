@@ -7,6 +7,13 @@
     font-family: "Lucida Console", "Courier New", monospace;
 }
 
+.lyrics{
+  white-space: pre-line;
+  text-align: center;
+  margin-bottom: 5vh;
+  padding-bottom: 5vh;
+}
+
 #loading{
     margin: 5vh;
     text-align: center;
