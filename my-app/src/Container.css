@@ -6,7 +6,8 @@
     background-color: white;
     font-family: "Lucida Console", "Courier New", monospace;
     border-radius: 25px;
-    border: 2px dotted #d70b60;
+    border: 2px solid #d70b60;
+    margin-bottom: 20px;
 }
 
 .lyrics{
