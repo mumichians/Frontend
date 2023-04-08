@@ -7,10 +7,13 @@ function QueryForm({setContent, setSubmitStatus}){
 
   // Generates placeholder text
   const placeholders = [
-          "Write me a Rock song in the style of Taylor Swift",
-          "Please give me a Rap song in the style of Mac Miller",
-          "Write a Beatles song for me in the Pop genre pretty please",
-          "Give me a song in the style of Prince"
+          "Write me a rock song in the style of Taylor Swift",
+          "Please give me a rap song in the style of Mac Miller",
+          "Write a Beatles song for me in the pop genre",
+          "Give me a song in the style of Prince",
+          "Help me write a song like Jason Mars",
+          "Write lyrics of a country song",
+          "James was here"
         ]
   const placeholderStr = placeholders[Math.floor(Math.random() * placeholders.length)];
   
