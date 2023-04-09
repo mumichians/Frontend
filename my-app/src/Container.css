@@ -1,3 +1,21 @@
+@import url('https://unpkg.com/css.gg@2.0.0/icons/css/copy.css');
+
+#copy-btn{
+  margin-left: 10px;
+  color: #fff;
+  margin-bottom: 10px;
+  background-color:#0a0a23;
+  font-family: "Lucida Console", "Courier New", monospace;
+  border:none;
+  border-radius:10px;
+}
+
+
+#submit-btn:hover {
+  color: #fff;
+  background-color: #d70b60;
+  border-color: #ca0a5d;
+}
 
 .container{
     margin: 5vh auto 5vh auto;
