@@ -55,9 +55,9 @@ function Container({content, submitStatus}){
               }}/> */}
               {content['lyrics']}
             </div>
-            {/* <div  >
+            <div  >
             <button id="copy-btn" onClick={() => {navigator.clipboard.writeText(content['lyrics'])}}>Copy</button> 
-            </div> */}
+            </div>
           </div>
         )}
       }else{
