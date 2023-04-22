@@ -1,5 +1,16 @@
 # Tunebot Web App
-use 'npm run start' to start frontend
-use 'npm run start-api' to start backend/api
+The main repository for TuneBot - a generative AI for generating song lyrics
 
-requirements.txt was generated using 'pip3 freeze > requirements.txt  # Python3'
+# Project Structure
+
+
+# How to run frontend? 
+cd into /my-app and run 'npm run start' to start frontend
+If it fails, you probably need to install certain thing 
+See the readme in /frontend for a guide
+
+# How to run backend
+cd into /backend and run 'python main.py'
+If it fails, you probably need to install certain thing 
+See the readme in /backend for a guide
+
